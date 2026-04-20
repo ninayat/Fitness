@@ -2,12 +2,170 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fitness Park - Manuel Opérationnel 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  <title>Fitness Park — Manuel Opérationnel 2025</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
   <style>
-    :root { --theme-color: #2a7d8f; }
-    .sidebar .app-name-link img { max-width: 42px; }
+    /* ── Brand tokens ──────────────────────────────────────── */
+    :root {
+      --fp-orange:   #f5821f;
+      --fp-orange-d: #d96a0a;
+      --fp-dark:     #1a1a2e;
+      --fp-mid:      #16213e;
+      --fp-text:     #2d2d2d;
+      --fp-light:    #f9f9f9;
+      --theme-color: #f5821f;
+    }
+
+    /* ── Base ──────────────────────────────────────────────── */
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--fp-text);
+      background: var(--fp-light);
+    }
+
+    /* ── Sidebar ───────────────────────────────────────────── */
+    .sidebar {
+      background: var(--fp-dark) !important;
+      border-right: none !important;
+    }
+    .sidebar-toggle { background: var(--fp-dark) !important; }
+    .sidebar-toggle span { background-color: #fff !important; }
+
+    .sidebar .app-name-link {
+      display: block;
+      padding: 22px 20px 16px;
+      font-size: .95rem;
+      font-weight: 700;
+      color: #fff !important;
+      letter-spacing: .4px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .sidebar ul li a {
+      color: rgba(255,255,255,.75) !important;
+      font-size: .87rem;
+      padding: 4px 0;
+      transition: color .15s;
+    }
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
+      color: var(--fp-orange) !important;
+    }
+    .sidebar ul li strong {
+      color: rgba(255,255,255,.4);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Content area ──────────────────────────────────────── */
+    .content { background: var(--fp-light); }
+    .markdown-section {
+      max-width: 820px;
+      padding: 32px 40px 60px;
+    }
+
+    /* ── Headings ──────────────────────────────────────────── */
+    .markdown-section h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--fp-dark);
+      border-bottom: 3px solid var(--fp-orange);
+      padding-bottom: 10px;
+      margin-bottom: 24px;
+    }
+    .markdown-section h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--fp-dark);
+      border-left: 4px solid var(--fp-orange);
+      padding-left: 12px;
+      margin-top: 36px;
+    }
+    .markdown-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    /* ── Links ─────────────────────────────────────────────── */
+    .markdown-section a { color: var(--fp-orange); text-decoration: none; }
+    .markdown-section a:hover { text-decoration: underline; }
+
+    /* ── Tables ────────────────────────────────────────────── */
+    .markdown-section table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .87rem;
+      margin: 16px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .markdown-section thead tr {
+      background: var(--fp-dark);
+      color: #fff;
+    }
+    .markdown-section thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .markdown-section tbody tr:nth-child(even) { background: #f3f3f3; }
+    .markdown-section tbody td { padding: 9px 14px; vertical-align: top; }
+
+    /* ── Blockquotes ───────────────────────────────────────── */
+    .markdown-section blockquote {
+      border-left: 4px solid var(--fp-orange);
+      background: #fff8f2;
+      margin: 16px 0;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      color: #555;
+    }
+
+    /* ── Code ──────────────────────────────────────────────── */
+    .markdown-section code {
+      background: #fff0e6;
+      color: var(--fp-orange-d);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: .85em;
+    }
+    .markdown-section pre { background: var(--fp-dark) !important; border-radius: 8px; }
+    .markdown-section pre code { background: transparent; color: #e0e0e0; }
+
+    /* ── Progress bar ───────────────────────────────────────── */
+    #nprogress .bar { background: var(--fp-orange) !important; }
+
+    /* ═══════════════════════════════════════════════════════
+       MOBILE RESPONSIVE
+    ═══════════════════════════════════════════════════════ */
+    @media screen and (max-width: 768px) {
+      .markdown-section {
+        padding: 20px 16px 50px;
+        font-size: .93rem;
+      }
+      .markdown-section h1 { font-size: 1.45rem; }
+      .markdown-section h2 { font-size: 1.05rem; }
+
+      /* Scrollable tables on mobile */
+      .markdown-section table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .markdown-section { padding: 14px 12px 40px; }
+      .markdown-section h1 { font-size: 1.25rem; }
+      .markdown-section blockquote { padding: 10px 12px; }
+    }
   </style>
 </head>
 <body>
@@ -15,20 +173,25 @@
 
   <script>
     window.$docsify = {
-      name: 'Fitness Park • Manuel 2025',
+      name: 'Fitness Park<br><small style="font-weight:300;font-size:.72rem;opacity:.65;letter-spacing:.3px">Manuel Opérationnel 2025</small>',
       repo: '',
       loadSidebar: true,
       homepage: 'README.md',
       subMaxLevel: 3,
       auto2top: true,
+      relativePath: true,
       search: {
-        placeholder: 'Rechercher une procédure',
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: 'Rechercher une procédure…',
         noData: 'Aucun résultat',
-        depth: 3
-      }
+        depth: 4,
+      },
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 </body>
 </html>
